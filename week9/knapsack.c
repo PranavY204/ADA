@@ -20,12 +20,23 @@ int knapSack(int W, int wt[], int val[], int n)
                 K[i][w] = K[i - 1][w];
         }
     }
-    printf("Items used: ");
+    printf("DP Table: \n");
+    printf("\t");
+    for(int i = 0; i <= W; i++) printf("%d\t", i);
+    printf("\n");
+    for(int i = 0; i <= n; i++){
+        printf("(%d, %d)\t", wt[i], val[i]);
+        for(int j = 0; j <= W; j++){
+            printf("%d\t", K[i][j]);
+        }
+        printf("\n");
+    }
+    printf("Items used: \n");
     int c = W, res = K[n][W];
     for(int i = n; i > 0 && res > 0; i--){
         if (res == K[i-1][c]) continue;
         else {
-            printf("(%d, %d)", wt[i-1], val[i-1]);
+            printf("Object %d: (%d, %d)\n", i, wt[i-1], val[i-1]);
             res -= val[i-1];
             c -= wt[i-1];
         }
@@ -49,7 +60,7 @@ int main()
     fflush(stdin);
     printf("Enter max weight: ");
     scanf("%d", &W);
-    printf("\nMax profit: %d", knapSack(W, weight, profit, n));
+    printf("Max profit: %d", knapSack(W, weight, profit, n));
 
     return 0;
 }
